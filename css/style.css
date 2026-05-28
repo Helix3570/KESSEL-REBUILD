@@ -245,7 +245,7 @@ border: 1px solid #ddd;
   align-items:start;
 }
 
-.about-text p{
+.about-text p:not(:last-child){
   margin: bottom 20px;px;
   line-height: 1.7;
   color:rgba(255,255,255,0.8);
