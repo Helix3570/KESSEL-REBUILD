@@ -96,6 +96,10 @@ nav a:hover{
   grid-template-columns: repeat(2, 1fr);
 }
 
+.card-grid--thee {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .card {
   background: #050816;
   margin-top: 50px;
