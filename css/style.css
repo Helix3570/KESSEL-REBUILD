@@ -241,7 +241,7 @@ border: 1px solid #ddd;
 .about-layout{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:3px;
+  gap: 30px;
   align-items:start;
 }
 
@@ -260,7 +260,6 @@ border: 1px solid #ddd;
   background-size:cover;
   background-position:center;
   box-shadow:0 20px 50px rgba(0,0,0,0.4);
-  margin: left 50px;
 }
 
 .footer{
