@@ -245,10 +245,10 @@ border: 1px solid #ddd;
   align-items:start;
 }
 
-.about-text p:not(:last-child){
-  margin: bottom 20px;
+.about-text p:not(:last-child) {
+  margin-bottom: 20px;
   line-height: 1.7;
-  color:rgba(255,255,255,0.8);
+  color: rgba(255,255,255,0.8);
 }
 
 .about-image{
