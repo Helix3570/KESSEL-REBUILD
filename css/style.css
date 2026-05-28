@@ -96,7 +96,7 @@ nav a:hover{
   grid-template-columns: repeat(2, 1fr);
 }
 
-.card-grid--thee {
+.card-grid--three {
   grid-template-columns: repeat(3, 1fr);
 }
 
