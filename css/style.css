@@ -340,3 +340,7 @@ border: 1px solid #ddd;
   padding-bottom: 10px;
   padding-top: 10px;
 }
+
+article p {
+  margin-bottom: 30px;
+}
