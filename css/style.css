@@ -240,7 +240,7 @@ border: 1px solid #ddd;
 .about-layout{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:35px;
+  gap:3px;
   align-items:start;
 }
 
