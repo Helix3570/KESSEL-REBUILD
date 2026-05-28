@@ -246,7 +246,8 @@ border: 1px solid #ddd;
 }
 
 .about-text p{
-  margin-bottom:12px;
+  margin: bottom 20px;px;
+  line-height: 1.7;
   color:rgba(255,255,255,0.8);
 }
 
