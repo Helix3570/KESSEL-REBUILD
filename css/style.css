@@ -308,3 +308,7 @@ border: 1px solid #ddd;
     font-size:3rem;
   }
 }
+
+.list-indent {
+  padding-left: 40px;
+}
