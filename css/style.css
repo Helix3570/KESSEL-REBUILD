@@ -340,6 +340,11 @@ border: 1px solid #ddd;
   padding-bottom: 10px;
 }
 
+.lower-list {
+  padding-left: 30px;
+  padding-bottom: 10px;
+}
+
 h3 {
   margin-top: 30px;
 
