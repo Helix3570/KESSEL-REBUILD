@@ -246,7 +246,7 @@ border: 1px solid #ddd;
 }
 
 .about-text p:not(:last-child){
-  margin: bottom 20px;px;
+  margin: bottom 20px;
   line-height: 1.7;
   color:rgba(255,255,255,0.8);
 }
