@@ -87,6 +87,13 @@ nav a:hover{
   padding: 140px 0 50px;
 }
 
+.hero-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+
 .card-grid {
   display: grid;
   gap: 20px;
