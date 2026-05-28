@@ -180,7 +180,7 @@ border: 1px solid #ddd;
 .hero-features{
   display:flex;
   flex-wrap:wrap;
-  gap:24px;
+  gap: 10px;;
   color:rgba(255,255,255,0.72);
   font-size:0.95rem;
 }
