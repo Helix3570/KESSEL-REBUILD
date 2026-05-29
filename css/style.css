@@ -399,20 +399,18 @@ h3 {
     opacity:.9;
 }
 
-#domainResult{
-    margin-top:25px;
-    font-size:18px;
-    font-weight:600;
+
+.domain-result{
+    display:flex;
+    justify-content:space-between;
+    padding:12px;
+    border-bottom:1px solid #eee;
 }
 
 .available{
-    color:#1ea64b;
+    color:#28a745;
 }
 
 .taken{
-    color:#d72638;
-}
-
-.loading{
-    color:#555;
+    color:#dc3545;
 }

@@ -2,61 +2,78 @@
 
 header('Content-Type: application/json');
 
-$domain = $_GET['domain'] ?? '';
+$name = $_GET['name'] ?? '';
 
-if (!$domain) {
-
-    echo json_encode([
-        'error' => 'No domain supplied'
-    ]);
-
+if(!$name){
+    echo json_encode([]);
     exit;
 }
 
-$domain = strtolower(trim($domain));
+$tlds = [
 
-$tld = pathinfo($domain, PATHINFO_EXTENSION);
+    'co.uk',
+    'uk',
+    'org.uk',
+    'me.uk',
+    'ltd.uk',
+    'plc.uk',
 
-$rdapServers = [
-
-    'com'  => 'https://rdap.verisign.com/com/v1/domain/',
-    'net'  => 'https://rdap.verisign.com/net/v1/domain/',
-    'org'  => 'https://rdap.publicinterestregistry.org/rdap/org/domain/',
-    'info' => 'https://rdap.identitydigital.services/rdap/domain/',
-    'biz'  => 'https://rdap.identitydigital.services/rdap/domain/'
+    'com',
+    'net',
+    'org',
+    'info',
+    'biz'
 
 ];
 
-if (!isset($rdapServers[$tld])) {
+$results = [];
 
-    echo json_encode([
+foreach($tlds as $tld){
+
+    $domain = $name . '.' . $tld;
+
+    $available = checkDomain($domain);
+
+    $results[] = [
+
         'domain' => $domain,
-        'available' => false,
-        'message' => 'Unsupported TLD'
-    ]);
+        'available' => $available
 
-    exit;
+    ];
+
 }
 
-$url =
-    $rdapServers[$tld] .
+echo json_encode($results);
+
+function checkDomain($domain){
+
+    $url =
+    'https://rdap.org/domain/' .
     urlencode($domain);
 
-$headers =
-    @get_headers($url);
+    $ch = curl_init($url);
 
-$available = false;
+    curl_setopt(
+        $ch,
+        CURLOPT_RETURNTRANSFER,
+        true
+    );
 
-if ($headers) {
+    curl_setopt(
+        $ch,
+        CURLOPT_TIMEOUT,
+        10
+    );
 
-    if (
-        strpos($headers[0], '404') !== false
-    ) {
-        $available = true;
-    }
+    curl_exec($ch);
+
+    $status =
+    curl_getinfo(
+        $ch,
+        CURLINFO_HTTP_CODE
+    );
+
+    curl_close($ch);
+
+    return $status == 404;
 }
-
-echo json_encode([
-    'domain' => $domain,
-    'available' => $available
-]);

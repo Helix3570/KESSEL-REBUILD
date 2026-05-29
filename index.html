@@ -187,34 +187,19 @@
       </p>
     </article>
   </section>
-  <div class="domain-search-container">
+ <div class="domain-search-container">
 
-    <h2>Find Your Perfect Domain Name</h2>
+    <input
+        type="text"
+        id="domainInput"
+        placeholder="Enter your business name"
+    >
 
-    <div class="domain-search-box">
+    <button id="searchDomainBtn">
+        Search Domains
+    </button>
 
-        <input
-            type="text"
-            id="domainInput"
-            placeholder="Enter your domain name"
-            autocomplete="off"
-        >
-
-        <select id="tldSelect">
-            <option value=".com">.com</option>
-            <option value=".net">.net</option>
-            <option value=".org">.org</option>
-            <option value=".info">.info</option>
-            <option value=".biz">.biz</option>
-        </select>
-
-        <button id="searchDomainBtn">
-            Search
-        </button>
-
-    </div>
-
-    <div id="domainResult"></div>
+    <div id="domainResults"></div>
 
 </div>
   <section class="cta" style="display: grid; place-items: center; text-align: center;">
@@ -233,64 +218,67 @@
 
 document
 .getElementById('searchDomainBtn')
-.addEventListener('click', searchDomain);
+.addEventListener('click', searchDomains);
 
-async function searchDomain(){
+async function searchDomains(){
 
     const name =
-        document.getElementById('domainInput')
-        .value
-        .trim()
-        .toLowerCase();
+    document
+    .getElementById('domainInput')
+    .value
+    .trim()
+    .toLowerCase();
 
-    const tld =
-        document.getElementById('tldSelect')
-        .value;
-
-    const result =
-        document.getElementById('domainResult');
+    const results =
+    document
+    .getElementById('domainResults');
 
     if(!name){
-
-        result.innerHTML =
-        '<span class="taken">Please enter a domain name.</span>';
-
+        results.innerHTML =
+        'Please enter a domain name.';
         return;
     }
 
-    result.innerHTML =
-    '<span class="loading">Checking availability...</span>';
+    results.innerHTML =
+    'Checking domains...';
 
-    try{
+    const response =
+    await fetch(
+        './api/domain-check.php?name=' +
+        encodeURIComponent(name)
+    );
 
-        const response =
-await fetch('./api/domain-check.php?domain=' + encodeURIComponent(name + tld));
+    const data =
+    await response.json();
 
-        const data =
-        await response.json();
+    let html = '';
 
-        if(data.available){
+    data.forEach(domain => {
 
-            result.innerHTML =
-            '<span class="available">✓ ' +
-            data.domain +
-            ' is available</span>';
+        html += `
+        <div class="domain-result">
 
-        }else{
+            <span>${domain.domain}</span>
 
-            result.innerHTML =
-            '<span class="taken">✗ ' +
-            data.domain +
-            ' is already registered</span>';
+            <strong class="${
+                domain.available
+                ? 'available'
+                : 'taken'
+            }">
 
-        }
+                ${
+                    domain.available
+                    ? '✓ Available'
+                    : '✗ Registered'
+                }
 
-    }catch(error){
+            </strong>
 
-        result.innerHTML =
-        '<span class="taken">Unable to check domain.</span>';
+        </div>
+        `;
+    });
 
-    }
+    results.innerHTML = html;
 
 }
 
