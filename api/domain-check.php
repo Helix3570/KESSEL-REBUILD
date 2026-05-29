@@ -68,6 +68,12 @@ function checkDomain($domain)
     if ($status == 200 && strpos($response, '"ldhName"') !== false) {
         return false;
     }
-
+echo "<pre>";
+echo "Domain: " . $domain . "\n";
+echo "HTTP Status: " . $status . "\n";
+echo "Response:\n";
+echo substr($response,0,500);
+echo "</pre>";
+exit;
     return false;
 }
