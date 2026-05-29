@@ -187,49 +187,6 @@
       </p>
     </article>
   </section>
- <section class="domain-hero">
-
-    <div class="domain-card">
-
-        <div class="search-wrapper">
-
-            <div class="input-icon">
-                🌐
-            </div>
-
-            <input
-                type="text"
-                id="domainInput"
-                placeholder="Search your perfect domain"
-            >
-
-            <button id="searchDomainBtn">
-                Search Domains
-            </button>
-
-        </div>
-
-        <div class="domain-tlds">
-
-            <span>✓ .co.uk</span>
-            <span>✓ .uk</span>
-            <span>✓ .org.uk</span>
-            <span>✓ .com</span>
-            <span>✓ .net</span>
-            <span>✓ .org</span>
-            <span>✓ .info</span>
-
-        </div>
-
-        <div class="domain-note">
-            Instant results • No signup required
-        </div>
-
-        <div id="domainResults"></div>
-
-    </div>
-
-</section>
   <section class="cta" style="display: grid; place-items: center; text-align: center;">
   <h2>Get a Website That Works for Your Business</h2>
   <p>Contact Kessel Design today for a free, no-obligation quote.</p>
@@ -242,74 +199,6 @@
     © 2026 Kessel Design
   </div>
 </footer>
-<script>
 
-document
-.getElementById('searchDomainBtn')
-.addEventListener('click', searchDomains);
-
-async function searchDomains(){
-
-    const name =
-    document
-    .getElementById('domainInput')
-    .value
-    .trim()
-    .toLowerCase();
-
-    const results =
-    document
-    .getElementById('domainResults');
-
-    if(!name){
-        results.innerHTML =
-        'Please enter a domain name.';
-        return;
-    }
-
-    results.innerHTML =
-    'Checking domains...';
-
-    const response =
-    await fetch(
-        './api/domain-check.php?name=' +
-        encodeURIComponent(name)
-    );
-
-    const data =
-    await response.json();
-
-    let html = '';
-
-    data.forEach(domain => {
-
-        html += `
-        <div class="domain-result">
-
-            <span>${domain.domain}</span>
-
-            <strong class="${
-                domain.available
-                ? 'available'
-                : 'taken'
-            }">
-
-                ${
-                    domain.available
-                    ? '✓ Available'
-                    : '✗ Registered'
-                }
-
-            </strong>
-
-        </div>
-        `;
-    });
-
-    results.innerHTML = html;
-
-}
-
-</script>
 </body>
 </html>
