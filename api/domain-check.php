@@ -45,35 +45,29 @@ foreach($tlds as $tld){
 
 echo json_encode($results);
 
-function checkDomain($domain){
-
-    $url =
-    'https://rdap.org/domain/' .
-    urlencode($domain);
+function checkDomain($domain)
+{
+    $url = "https://rdap.org/domain/" . urlencode($domain);
 
     $ch = curl_init($url);
 
-    curl_setopt(
-        $ch,
-        CURLOPT_RETURNTRANSFER,
-        true
-    );
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 
-    curl_setopt(
-        $ch,
-        CURLOPT_TIMEOUT,
-        10
-    );
+    $response = curl_exec($ch);
 
-    curl_exec($ch);
-
-    $status =
-    curl_getinfo(
-        $ch,
-        CURLINFO_HTTP_CODE
-    );
+    $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
     curl_close($ch);
 
-    return $status == 404;
+    if ($status == 404) {
+        return true;
+    }
+
+    if ($status == 200 && strpos($response, '"ldhName"') !== false) {
+        return false;
+    }
+
+    return false;
 }
