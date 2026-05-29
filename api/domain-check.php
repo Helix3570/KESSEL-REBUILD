@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 header('Content-Type: application/json');
 
-$name = $_GET['name'] ?? '';
+$name = $_GET['domain'] ?? '';
 
 if(!$name){
     echo json_encode([]);
