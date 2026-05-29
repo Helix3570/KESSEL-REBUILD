@@ -264,9 +264,7 @@ async function searchDomain(){
     try{
 
         const response =
-await fetch(
-    './api/domain-check.php?domain=' +
-    encodeURIComponent(name + tld)
+await fetch('./api/domain-check.php?domain=' + encodeURIComponent(name + tld))
 );
 
         const data =
