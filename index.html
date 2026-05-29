@@ -187,6 +187,36 @@
       </p>
     </article>
   </section>
+  <div class="domain-search-container">
+
+    <h2>Find Your Perfect Domain Name</h2>
+
+    <div class="domain-search-box">
+
+        <input
+            type="text"
+            id="domainInput"
+            placeholder="Enter your domain name"
+            autocomplete="off"
+        >
+
+        <select id="tldSelect">
+            <option value=".com">.com</option>
+            <option value=".net">.net</option>
+            <option value=".org">.org</option>
+            <option value=".info">.info</option>
+            <option value=".biz">.biz</option>
+        </select>
+
+        <button id="searchDomainBtn">
+            Search
+        </button>
+
+    </div>
+
+    <div id="domainResult"></div>
+
+</div>
   <section class="cta" style="display: grid; place-items: center; text-align: center;">
   <h2>Get a Website That Works for Your Business</h2>
   <p>Contact Kessel Design today for a free, no-obligation quote.</p>
@@ -199,6 +229,74 @@
     © 2026 Kessel Design
   </div>
 </footer>
+<script>
 
+document
+.getElementById('searchDomainBtn')
+.addEventListener('click', searchDomain);
+
+async function searchDomain(){
+
+    const name =
+        document.getElementById('domainInput')
+        .value
+        .trim()
+        .toLowerCase();
+
+    const tld =
+        document.getElementById('tldSelect')
+        .value;
+
+    const result =
+        document.getElementById('domainResult');
+
+    if(!name){
+
+        result.innerHTML =
+        '<span class="taken">Please enter a domain name.</span>';
+
+        return;
+    }
+
+    result.innerHTML =
+    '<span class="loading">Checking availability...</span>';
+
+    try{
+
+        const response =
+        await fetch(
+            '/api/domain-check.php?domain=' +
+            encodeURIComponent(name + tld)
+        );
+
+        const data =
+        await response.json();
+
+        if(data.available){
+
+            result.innerHTML =
+            '<span class="available">✓ ' +
+            data.domain +
+            ' is available</span>';
+
+        }else{
+
+            result.innerHTML =
+            '<span class="taken">✗ ' +
+            data.domain +
+            ' is already registered</span>';
+
+        }
+
+    }catch(error){
+
+        result.innerHTML =
+        '<span class="taken">Unable to check domain.</span>';
+
+    }
+
+}
+
+</script>
 </body>
 </html>
